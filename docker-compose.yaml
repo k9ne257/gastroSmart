@@ -13,7 +13,7 @@ services:
       - db_data:/var/lib/mysql
 
   app-backend:
-    build: .
+    build: ./backend
     depends_on:
       - gastro-db
     ports:
@@ -26,7 +26,9 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
 
   app-frontend:
-    image: node
+    build: ./frontend
+    depends_on:
+      - app-backend
     ports:
       - "3000:3000"
 
