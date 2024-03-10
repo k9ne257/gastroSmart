@@ -40,7 +40,7 @@ jobs:
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
-          image: k9ne257/gastrosmart
+          image: k9ne257/gastrosmart-backend
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile
