@@ -15,7 +15,7 @@ COPY --chown=gradle:gradle src /home/gradle/src/src
 RUN gradle build --no-daemon
 
 # For the second stage, use an OpenJDK runtime as the base image to run the application
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
