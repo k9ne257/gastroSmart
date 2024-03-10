@@ -1,0 +1,8 @@
+﻿# GastroSmart
+
+
+## Docker
+
+## Backend
+
+## Frontend
