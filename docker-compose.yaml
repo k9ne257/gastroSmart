@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  gastro-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: gastroSmart
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+      MYSQL_ROOT_PASSWORD: dev
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+
+  app-backend:
+    build: ./backend
+    depends_on:
+      - gastro-db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://gastro-db:3306/gastroSmart?serverTimezone=Europe/Berlin
+      SPRING_DATASOURCE_USERNAME: dev
+      SPRING_DATASOURCE_PASSWORD: dev
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    volumes:
+      - .m2:/root/.m2
+
+  app-frontend:
+    build: ./frontend
+    depends_on:
+      - app-backend
+      - gastro-db
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
+    driver: local
