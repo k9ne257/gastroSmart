@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 backend/Dockerfile
+frontend/Dockerfile
 frontend/node_modules/**
 
 ### STS ###
