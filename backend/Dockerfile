@@ -9,8 +9,7 @@ WORKDIR /home/gradle/src
 COPY --chown=gradle:gradle build.gradle settings.gradle /home/gradle/src/
 
 # Copy the source code
-#COPY --chown=gradle:gradle src /home/gradle/src/src
-COPY --chown=gradle:gradle src /home/gradle/src
+COPY --chown=gradle:gradle backend/src /home/gradle/src/src
 
 # Build the application
 RUN gradle build --no-daemon
