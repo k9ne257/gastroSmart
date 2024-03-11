@@ -6,10 +6,10 @@ FROM gradle:8.6.0-jdk17 AS build
 WORKDIR /home/gradle/src
 
 # Copy the Gradle configuration files
-COPY --chown=gradle:gradle build.gradle settings.gradle /home/gradle/src/
+COPY --chown=gradle:gradle backend/build.gradle backend/settings.gradle /home/gradle/src/
 
 # Copy the source code
-COPY --chown=gradle:gradle src /home/gradle/src/src
+COPY --chown=gradle:gradle backend/src /home/gradle/src/src
 
 # Build the application
 RUN gradle build --no-daemon
