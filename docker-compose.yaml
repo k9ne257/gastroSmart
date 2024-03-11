@@ -12,6 +12,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+
   app-backend:
     build: ./backend
     depends_on:
@@ -24,14 +25,17 @@ services:
       SPRING_DATASOURCE_PASSWORD: dev
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    volumes:
+      - .m2:/root/.m2
 
   app-frontend:
     build: ./frontend
     depends_on:
       - app-backend
+      - gastro-db
     ports:
       - "3000:3000"
 
-
 volumes:
   db_data:
+    driver: local
