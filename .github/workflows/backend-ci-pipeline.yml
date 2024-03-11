@@ -46,7 +46,7 @@ jobs:
           image: k9ne257/gastrosmart-backend
           tags: latest
           registry: docker.io
-          dockerfile: ./Dockerfile
+          dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
