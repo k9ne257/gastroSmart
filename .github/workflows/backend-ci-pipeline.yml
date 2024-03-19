@@ -1,0 +1,74 @@
+name: CI Pipline
+env:
+  MYSQL_DATABASE: test_gastroSmart
+  MYSQL_PASSWORD: test_dev
+  MYSQL_ROOT_PASSWORD: test_dev
+  MYSQL_USER: test_dev
+  
+on:
+  push:
+    branches: [ "main","dev" ]
+  pull_request:
+    branches: [ "main","dev" ]
+
+defaults:
+      run:
+        working-directory: ./backend/
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: setup mysql
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql database: ${{env.MYSQL_DATABASE}}
+        mysql root password: ${{ env.MYSQL_ROOT_PASSWORD }}
+        mysql user: ${{env.MYSQL_USER}}
+        mysql password: ${{env.MYSQL_PASSWORD}}
+      
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: k9ne257/gastrosmart-backend
+          tags: latest
+          registry: docker.io
+          dockerfile: ./backend/Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+
+  # dependency-submission:
+
+  #   defaults:
+  #       run:
+  #         working-directory: ./backend/
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Set up JDK 17
+  #     uses: actions/setup-java@v4
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+
+  #   # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
+  #   # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+  #   - name: Generate and submit dependency graph
+  #     uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      
