@@ -2,9 +2,9 @@ FROM node:18-alpine
 
 WORKDIR /gastrosmart-frontend/
 
-COPY public/ /gastrosmart-frontend/public
-COPY src/ /gastrosmart-frontend/src
-COPY package.json /gastrosmart-frontend/
+COPY frontend/public/ /gastrosmart-frontend/public
+COPY frontend/src/ /gastrosmart-frontend/src
+COPY frontend/package.json /gastrosmart-frontend/
 
 RUN npm install
 COPY . .
