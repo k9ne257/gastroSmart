@@ -5,16 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 
-@Data
-@Entity
-public class Permission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String permissionName;
-    private String description;
+public interface PermissionRepository extends JpaRepository<Permission,Long> {
+
 
 }

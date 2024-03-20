@@ -1,4 +1,4 @@
-package com.webfrey.gastroSmart.config.security;
+package com.webfrey.gastroSmart.config.security.roles;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +10,11 @@ import java.util.List;
 
 @Data
 @Entity
-public class Role {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String roleName;
-    private List<Permission> permissionList;
+    private String permissionName;
+    private String description;
+
 }

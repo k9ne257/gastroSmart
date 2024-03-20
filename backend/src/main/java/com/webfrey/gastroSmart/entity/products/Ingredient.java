@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Category{
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
